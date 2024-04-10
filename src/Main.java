@@ -21,7 +21,7 @@ public class Main {
 
             System.out.println("BEM VINDOS AO JOGO DA VELHA");
 
-            while (!ganhou() && !verificaEmpate()) {
+            while (!ganhou() && !empatou()) {
 
                 System.out.println("Digite uma linha?");
                 int linha = leitor.nextInt();
@@ -29,12 +29,12 @@ public class Main {
                 System.out.println("Digite uma coluna?");
                 int coluna = leitor.nextInt();
 
-                if(linha > 3 || coluna > 3 || linha < 0 || coluna < 0 ) {
+                if(linha > 3 || coluna > 3 || linha < 1 || coluna < 1 ) {
                     System.out.println("Linha ou coluna inválida");
 
                 } else if (tabuleiro[linha][coluna].equals(" ")) {
                     tabuleiro[linha][coluna] = jogador;
-                    if(!ganhou()) {
+                    if(!ganhou() && !empatou()) {
                         jogador = (jogador.equals("X") ? "O" : "X");
                     }
                     rodada++;
@@ -43,7 +43,6 @@ public class Main {
                 }
                 mostraTabuleiro();
             }
-            System.out.println("Jogador: " + jogador + " venceu");
             validaGanhador();
         }
     }
@@ -70,36 +69,37 @@ public class Main {
             }
         }
     }
-
-    public static boolean verificaEmpate() {
-        if (!ganhou() && rodada >= 9) {
-            System.out.println("Empate");
-            empate++;
-            return true;
-        }
-        return false;
-    }
-    public static int validaGanhador(){
+    public static void validaGanhador(){
         if(ganhou()){
-            if (jogador.equals("X")){
-                return contaVitoriaX++;
+            if(jogador.equals("X")){
+                contaVitoriaX++;
+                System.out.println("Jogador X ganhou");
+            } else{
+                contaVitoriaO++;
+                System.out.println("Jogador O ganhou");
             }
+        }else {
+            empate++;
+            System.out.println("Empatou");
         }
-        return contaVitoriaO++;
+    }
+    public static boolean empatou(){
+        if(rodada < 9){
+            return false;
+        }
+        return true;
     }
 
     public static boolean ganhou() {
-
         // verifica as diagonais
         if((tabuleiro[1][1].equals(jogador) && tabuleiro[2][2].equals(jogador) && tabuleiro[3][3].equals(jogador)) ||
-          (tabuleiro[3][1].equals(jogador) && tabuleiro[2][2].equals(jogador) && tabuleiro[1][3].equals(jogador))){
+                (tabuleiro[3][1].equals(jogador) && tabuleiro[2][2].equals(jogador) && tabuleiro[1][3].equals(jogador))){
             return true;
         }
-
         //verifica linhas e colunas
         for (int i = 0; i < 3; i++){
             if (tabuleiro[i][1].equals(jogador) && tabuleiro[i][2].equals(jogador) && tabuleiro[i][3].equals(jogador) ||
-                tabuleiro[1][i].equals(jogador) && tabuleiro[2][i].equals(jogador) && tabuleiro[3][i].equals(jogador)){
+                    tabuleiro[1][i].equals(jogador) && tabuleiro[2][i].equals(jogador) && tabuleiro[3][i].equals(jogador)){
                 return true;
             }
         }
