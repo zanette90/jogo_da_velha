@@ -3,7 +3,7 @@ import java.util.Scanner;
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Main {
-    static String[][] tabuleiro = new String[3][3];
+    static String[][] tabuleiro = new String[4][4];
     static int empate = 0;
     static int rodada = 0;
     static int contaVitoriaX = 0;
@@ -33,7 +33,6 @@ public class Main {
                     System.out.println("Linha ou coluna inválida");
 
                 } else if (tabuleiro[linha][coluna].equals(" ")) {
-
                     tabuleiro[linha][coluna] = jogador;
                     if(!ganhou()) {
                         jogador = (jogador.equals("X") ? "O" : "X");
@@ -44,6 +43,7 @@ public class Main {
                 }
                 mostraTabuleiro();
             }
+            System.out.println("Jogador: " + jogador + " venceu");
             validaGanhador();
         }
     }
@@ -53,10 +53,10 @@ public class Main {
     }
 
     public static void mostraTabuleiro() {
-        for (int k = 0; k < 3; k++) {
-            for (int l = 0; l < 3; l++) {
+        for (int k = 1; k < 4; k++) {
+            for (int l = 1; l < 4; l++) {
                 System.out.print(tabuleiro[k][l]);
-                if (l < 2) {
+                if (l < 3) {
                     System.out.print(" | ");
                 }
             }
@@ -64,8 +64,8 @@ public class Main {
         }
     }
     public static void zeraTabuleiro() {
-        for (int i = 0; i < 3; i++) {
-            for (int j = 0; j < 3; j++) {
+        for (int i = 0; i < 4; i++) {
+            for (int j = 0; j < 4; j++) {
                 tabuleiro[i][j] = " ";
             }
         }
@@ -90,18 +90,16 @@ public class Main {
 
     public static boolean ganhou() {
 
-        //verifica diagonais
-        if (tabuleiro[0][0].equals(jogador) && tabuleiro[1][1].equals(jogador) && tabuleiro[2][2].equals(jogador)){
-            return true;
-        } else if (tabuleiro[2][0].equals(jogador) && tabuleiro[1][1].equals(jogador) && tabuleiro[0][2].equals(jogador)) {
+        // verifica as diagonais
+        if((tabuleiro[1][1].equals(jogador) && tabuleiro[2][2].equals(jogador) && tabuleiro[3][3].equals(jogador)) ||
+          (tabuleiro[3][1].equals(jogador) && tabuleiro[2][2].equals(jogador) && tabuleiro[1][3].equals(jogador))){
             return true;
         }
 
         //verifica linhas e colunas
-        for (int i = 0; i < 3; i++) {
-            if (tabuleiro[i][0].equals(jogador) && tabuleiro[i][1].equals(jogador) && tabuleiro[i][2].equals(jogador)){
-                return true;
-            } else if (tabuleiro[0][i].equals(jogador) && tabuleiro[1][i].equals(jogador) && tabuleiro[2][i].equals(jogador)){
+        for (int i = 0; i < 3; i++){
+            if (tabuleiro[i][1].equals(jogador) && tabuleiro[i][2].equals(jogador) && tabuleiro[i][3].equals(jogador) ||
+                tabuleiro[1][i].equals(jogador) && tabuleiro[2][i].equals(jogador) && tabuleiro[3][i].equals(jogador)){
                 return true;
             }
         }
