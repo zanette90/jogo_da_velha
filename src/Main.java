@@ -18,6 +18,7 @@ public class Main {
             zeraTabuleiro();
             mostraTabuleiro();
             rodada = 0;
+            jogador = "X";
 
             System.out.println("BEM VINDOS AO JOGO DA VELHA");
 
@@ -32,9 +33,9 @@ public class Main {
                 if(linha > 3 || coluna > 3 || linha < 1 || coluna < 1 ) {
                     System.out.println("Linha ou coluna inválida");
 
-                } else if (tabuleiro[linha][coluna].equals(" ")) {
+                }else if (tabuleiro[linha][coluna].equals(" ")) {
                     tabuleiro[linha][coluna] = jogador;
-                    if(!ganhou() && !empatou()) {
+                    if(!ganhou()) {
                         jogador = (jogador.equals("X") ? "O" : "X");
                     }
                     rodada++;
