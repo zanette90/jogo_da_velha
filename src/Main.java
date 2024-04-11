@@ -17,7 +17,8 @@ public class Main {
             mostraPlacar();
             zeraTabuleiro();
             mostraTabuleiro();
-
+            rodada = 0;
+            jogador = "X";
 
             System.out.println("BEM VINDOS AO JOGO DA VELHA");
 
@@ -44,8 +45,7 @@ public class Main {
                 mostraTabuleiro();
             }
             validaGanhador();
-            rodada = 0;
-            jogador = "X";
+
         }
     }
 
