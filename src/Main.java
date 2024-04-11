@@ -17,12 +17,11 @@ public class Main {
             mostraPlacar();
             zeraTabuleiro();
             mostraTabuleiro();
-            rodada = 0;
-            jogador = "X";
+
 
             System.out.println("BEM VINDOS AO JOGO DA VELHA");
 
-            while (!ganhou() && !empatou()) {
+            while (!empatou() && !ganhou()) {
 
                 System.out.println("Digite uma linha?");
                 int linha = leitor.nextInt();
@@ -31,7 +30,7 @@ public class Main {
                 int coluna = leitor.nextInt();
 
                 if(linha > 3 || coluna > 3 || linha < 1 || coluna < 1 ) {
-                    System.out.println("Linha ou coluna inválida");
+                    System.out.println("Linha ou coluna inválida, digite uma linha de 1 a 3");
 
                 }else if (tabuleiro[linha][coluna].equals(" ")) {
                     tabuleiro[linha][coluna] = jogador;
@@ -45,6 +44,8 @@ public class Main {
                 mostraTabuleiro();
             }
             validaGanhador();
+            rodada = 0;
+            jogador = "X";
         }
     }
 
